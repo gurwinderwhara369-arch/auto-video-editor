@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="grid two">
+  <form class="panel stack" action="/jobs" method="post" enctype="multipart/form-data">
+    <div>
+      <p class="eyebrow">One-click pipeline</p>
+      <h1>Render a trend-style tattoo reel</h1>
+    </div>
+
+    <label>
+      <span>Trend video path</span>
+      <input name="trend_path" value="{{ defaults.trend_path }}" placeholder="Montagem Tentana Trend 1.mp4">
+    </label>
+    <label>
+      <span>Or upload trend video</span>
+      <input name="trend_upload" type="file" accept="video/*">
+    </label>
+
+    <label>
+      <span>Tattoo clips folder path</span>
+      <input name="clips_path" value="{{ defaults.clips_path }}" placeholder="raw videos of tatoo process">
+    </label>
+    <label>
+      <span>Or upload tattoo clips</span>
+      <input name="clip_uploads" type="file" accept="video/*" multiple>
+    </label>
+
+    <label>
+      <span>Existing clip metadata</span>
+      <input name="metadata_path" value="{{ defaults.metadata_path }}">
+    </label>
+    <label>
+      <span>Existing moment metadata</span>
+      <input name="moments_path" value="{{ defaults.moments_path }}">
+    </label>
+    <label>
+      <span>Output name</span>
+      <input name="output_name" value="{{ defaults.output_name }}">
+    </label>
+
+    <button class="primary" type="submit">Render Reel</button>
+  </form>
+
+  <aside class="panel stack">
+    <div>
+      <p class="eyebrow">What runs</p>
+      <h2>Full engine path</h2>
+    </div>
+    <ol class="steps">
+      <li>Scan trend timing and effects</li>
+      <li>Extract trend audio and beats</li>
+      <li>Analyze tattoo clips and moments</li>
+      <li>Render clean, balanced, aggressive</li>
+      <li>QA selects the final MP4</li>
+    </ol>
+  </aside>
+</section>
+
+<section class="panel">
+  <div class="section-head">
+    <h2>Recent jobs</h2>
+  </div>
+  <div class="job-list">
+    {% for job in jobs %}
+      <a class="job-row" href="/jobs/{{ job.job_id }}">
+        <strong>{{ job.job_id }}</strong>
+        <span>{{ job.status }}</span>
+        <small>{{ job.step }}</small>
+      </a>
+    {% else %}
+      <p class="muted">No web jobs yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

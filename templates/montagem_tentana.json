@@ -1,0 +1,725 @@
+{
+  "template_id": "montagem_tentana_trend_1",
+  "name": "Montagem Tentana Trend 1",
+  "version": "1.0",
+  "aspect_ratio": "9:16",
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "total_duration": 13.0333,
+  "music_mode": "user_song",
+  "beat_sync": true,
+  "beat_sync_tolerance": 0.12,
+  "segments": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 0.4992,
+      "duration": 0.4992,
+      "slot_type": "intro",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.6592625834893165,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "white_flash",
+        "duration": 0.12,
+        "metadata": {
+          "scanner_time": 0.0333,
+          "intensity": 0.0093
+        }
+      },
+      "source_start": 0.0,
+      "source_end": 0.4992,
+      "scanner_confidence": 0.8319,
+      "scanner_notes": [
+        "motion=0.659",
+        "flash=white_flash@0.033"
+      ]
+    },
+    {
+      "index": 1,
+      "start": 0.4992,
+      "end": 0.8707,
+      "duration": 0.3715,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.40495301754852525,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 0.4992,
+      "source_end": 0.8707,
+      "scanner_confidence": 0.631,
+      "scanner_notes": [
+        "motion=0.405"
+      ]
+    },
+    {
+      "index": 2,
+      "start": 0.8707,
+      "end": 1.2423,
+      "duration": 0.3716,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.35,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 0.8707,
+      "source_end": 1.2423,
+      "scanner_confidence": 0.588,
+      "scanner_notes": [
+        "motion=0.190"
+      ]
+    },
+    {
+      "index": 3,
+      "start": 1.2423,
+      "end": 1.6022,
+      "duration": 0.3599,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.4065014966009166,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 1.2423,
+      "source_end": 1.6022,
+      "scanner_confidence": 0.6313,
+      "scanner_notes": [
+        "motion=0.407"
+      ]
+    },
+    {
+      "index": 4,
+      "start": 1.6022,
+      "end": 1.8333,
+      "duration": 0.2311,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.35,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 1.6022,
+      "source_end": 1.8333,
+      "scanner_confidence": 0.5737,
+      "scanner_notes": [
+        "motion=0.118"
+      ]
+    },
+    {
+      "index": 5,
+      "start": 1.8333,
+      "end": 2.3336,
+      "duration": 0.5003,
+      "slot_type": "transition",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "zoom_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.65,
+        "duration": null,
+        "metadata": {
+          "reason": "strong beat"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 1.8333,
+      "source_end": 2.3336,
+      "scanner_confidence": 0.7188,
+      "scanner_notes": [
+        "motion=0.344",
+        "strong_beat_aligned"
+      ]
+    },
+    {
+      "index": 6,
+      "start": 2.3336,
+      "end": 2.5667,
+      "duration": 0.2331,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.35,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 2.3336,
+      "source_end": 2.5667,
+      "scanner_confidence": 0.5914,
+      "scanner_notes": [
+        "motion=0.207"
+      ]
+    },
+    {
+      "index": 7,
+      "start": 2.5667,
+      "end": 3.065,
+      "duration": 0.4983,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 2.5667,
+      "source_end": 3.065,
+      "scanner_confidence": 0.5872,
+      "scanner_notes": [
+        "motion=0.186"
+      ]
+    },
+    {
+      "index": 8,
+      "start": 3.065,
+      "end": 3.3,
+      "duration": 0.235,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.35,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 3.065,
+      "source_end": 3.3,
+      "scanner_confidence": 0.6012,
+      "scanner_notes": [
+        "motion=0.256"
+      ]
+    },
+    {
+      "index": 9,
+      "start": 3.3,
+      "end": 3.6,
+      "duration": 0.3,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "zoom_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.65,
+        "duration": null,
+        "metadata": {
+          "reason": "strong beat"
+        }
+      },
+      "transition_out": {
+        "type": "black_flash",
+        "duration": 0.12,
+        "metadata": {
+          "scanner_time": 3.4333,
+          "intensity": 1.0
+        }
+      },
+      "source_start": 3.3,
+      "source_end": 3.6,
+      "scanner_confidence": 0.8749,
+      "scanner_notes": [
+        "motion=0.375",
+        "flash=black_flash@3.433",
+        "strong_beat_aligned"
+      ]
+    },
+    {
+      "index": 10,
+      "start": 3.6,
+      "end": 4.0,
+      "duration": 0.4,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.35,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 3.6,
+      "source_end": 4.0,
+      "scanner_confidence": 0.5676,
+      "scanner_notes": [
+        "motion=0.088"
+      ]
+    },
+    {
+      "index": 11,
+      "start": 4.0,
+      "end": 5.6308,
+      "duration": 1.6308,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "slow_zoom",
+        "zoom_start": 1.0,
+        "zoom_end": 1.06,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "longer segment"
+        }
+      },
+      "transition_out": {
+        "type": "fade",
+        "duration": 0.12,
+        "metadata": {
+          "reason": "long segment"
+        }
+      },
+      "source_start": 4.0,
+      "source_end": 5.6308,
+      "scanner_confidence": 0.5776,
+      "scanner_notes": [
+        "motion=0.138"
+      ]
+    },
+    {
+      "index": 12,
+      "start": 5.6308,
+      "end": 6.0024,
+      "duration": 0.3716,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.35,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 5.6308,
+      "source_end": 6.0024,
+      "scanner_confidence": 0.6104,
+      "scanner_notes": [
+        "motion=0.302"
+      ]
+    },
+    {
+      "index": 13,
+      "start": 6.0024,
+      "end": 6.3623,
+      "duration": 0.3599,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.35,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 6.0024,
+      "source_end": 6.3623,
+      "scanner_confidence": 0.6029,
+      "scanner_notes": [
+        "motion=0.264"
+      ]
+    },
+    {
+      "index": 14,
+      "start": 6.3623,
+      "end": 7.0937,
+      "duration": 0.7314,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 6.3623,
+      "source_end": 7.0937,
+      "scanner_confidence": 0.608,
+      "scanner_notes": [
+        "motion=0.290"
+      ]
+    },
+    {
+      "index": 15,
+      "start": 7.0937,
+      "end": 7.8251,
+      "duration": 0.7314,
+      "slot_type": "transition",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "zoom_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.65,
+        "duration": null,
+        "metadata": {
+          "reason": "strong beat"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 7.0937,
+      "source_end": 7.8251,
+      "scanner_confidence": 0.6969,
+      "scanner_notes": [
+        "motion=0.234",
+        "strong_beat_aligned"
+      ]
+    },
+    {
+      "index": 16,
+      "start": 7.8251,
+      "end": 8.5566,
+      "duration": 0.7315,
+      "slot_type": "detail",
+      "required_clip_type": "detail",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 7.8251,
+      "source_end": 8.5566,
+      "scanner_confidence": 0.5928,
+      "scanner_notes": [
+        "motion=0.214"
+      ]
+    },
+    {
+      "index": 17,
+      "start": 8.5566,
+      "end": 9.288,
+      "duration": 0.7314,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "zoom_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.65,
+        "duration": null,
+        "metadata": {
+          "reason": "strong beat"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 8.5566,
+      "source_end": 9.288,
+      "scanner_confidence": 0.7036,
+      "scanner_notes": [
+        "motion=0.268",
+        "strong_beat_aligned"
+      ]
+    },
+    {
+      "index": 18,
+      "start": 9.288,
+      "end": 10.031,
+      "duration": 0.743,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 9.288,
+      "source_end": 10.031,
+      "scanner_confidence": 0.6014,
+      "scanner_notes": [
+        "motion=0.257"
+      ]
+    },
+    {
+      "index": 19,
+      "start": 10.031,
+      "end": 10.7624,
+      "duration": 0.7314,
+      "slot_type": "reveal",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "zoom_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.65,
+        "duration": null,
+        "metadata": {
+          "reason": "strong beat"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 10.031,
+      "source_end": 10.7624,
+      "scanner_confidence": 0.7027,
+      "scanner_notes": [
+        "motion=0.264",
+        "strong_beat_aligned"
+      ]
+    },
+    {
+      "index": 20,
+      "start": 10.7624,
+      "end": 11.4939,
+      "duration": 0.7315,
+      "slot_type": "reveal",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "zoom_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.75,
+        "duration": null,
+        "metadata": {
+          "reason": "ending/reveal emphasis"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 10.7624,
+      "source_end": 11.4939,
+      "scanner_confidence": 0.6904,
+      "scanner_notes": [
+        "motion=0.202",
+        "strong_beat_aligned"
+      ]
+    },
+    {
+      "index": 21,
+      "start": 11.4939,
+      "end": 12.2253,
+      "duration": 0.7314,
+      "slot_type": "ending",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "zoom_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.75,
+        "duration": null,
+        "metadata": {
+          "reason": "ending/reveal emphasis"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 11.4939,
+      "source_end": 12.2253,
+      "scanner_confidence": 0.7065,
+      "scanner_notes": [
+        "motion=0.282",
+        "strong_beat_aligned"
+      ]
+    },
+    {
+      "index": 22,
+      "start": 12.2253,
+      "end": 13.0333,
+      "duration": 0.808,
+      "slot_type": "ending",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "zoom_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.75,
+        "duration": null,
+        "metadata": {
+          "reason": "ending/reveal emphasis"
+        }
+      },
+      "transition_out": {
+        "type": "black_flash",
+        "duration": 0.12,
+        "metadata": {
+          "scanner_time": 12.2333,
+          "intensity": 0.3243
+        }
+      },
+      "source_start": 12.2253,
+      "source_end": 13.0333,
+      "scanner_confidence": 0.8072,
+      "scanner_notes": [
+        "motion=0.036",
+        "flash=black_flash@12.233",
+        "strong_beat_aligned"
+      ]
+    }
+  ],
+  "global_style": {
+    "color_grade": "neutral",
+    "film_grain": true,
+    "sharpen": true
+  },
+  "scanner_metadata": {
+    "source_video": "Montagem Tentana Trend 1.mp4",
+    "source_duration": 13.033333,
+    "source_width": 480,
+    "source_height": 640,
+    "source_fps": 30.0,
+    "unsupported_visual_features_recorded": [
+      "photo_wall_or_collage",
+      "duplicate_subject",
+      "masked_overlays",
+      "glow_trails",
+      "text_or_watermark_recreation"
+    ]
+  }
+}

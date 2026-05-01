@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+workspace/jobs/
+workspace/temp/
+workspace/outputs/
+workspace/uploads/
+workspace/reports/
+workspace/web_jobs/
+workspace/.cache/
+*.egg-info/

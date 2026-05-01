@@ -1,0 +1,870 @@
+{
+  "template_id": "montagem_tentana_trend_1",
+  "name": "Montagem Tentana Trend 1",
+  "version": "1.0",
+  "aspect_ratio": "9:16",
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "total_duration": 13.0333,
+  "music_mode": "user_song",
+  "beat_sync": true,
+  "beat_sync_tolerance": 0.12,
+  "segments": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 0.2,
+      "duration": 0.2,
+      "slot_type": "intro",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "rgb_glitch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.5657382209317391,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "flash_hit",
+        "duration": 0.09,
+        "metadata": {
+          "scanner_time": 0.0333,
+          "intensity": 0.0093
+        }
+      },
+      "source_start": 0.0,
+      "source_end": 0.2,
+      "scanner_confidence": 0.8131,
+      "scanner_notes": [
+        "motion=0.566",
+        "flash=white_flash@0.033"
+      ]
+    },
+    {
+      "index": 1,
+      "start": 0.2,
+      "end": 0.4,
+      "duration": 0.2,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "motion_blur",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.7040055480547287,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "flash_hit",
+        "duration": 0.09,
+        "metadata": {
+          "scanner_time": 0.3,
+          "intensity": 1.0
+        }
+      },
+      "source_start": 0.2,
+      "source_end": 0.4,
+      "scanner_confidence": 0.8408,
+      "scanner_notes": [
+        "motion=0.704",
+        "flash=white_flash@0.300"
+      ]
+    },
+    {
+      "index": 2,
+      "start": 0.4,
+      "end": 0.6333,
+      "duration": 0.2333,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "rotate_shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.7396878091351303,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "black_flash",
+        "duration": 0.09,
+        "metadata": {
+          "scanner_time": 0.4333,
+          "intensity": 1.0
+        }
+      },
+      "source_start": 0.4,
+      "source_end": 0.6333,
+      "scanner_confidence": 0.8479,
+      "scanner_notes": [
+        "motion=0.740",
+        "flash=black_flash@0.433"
+      ]
+    },
+    {
+      "index": 3,
+      "start": 0.6333,
+      "end": 0.8667,
+      "duration": 0.2334,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "pixel_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 0.6333,
+      "source_end": 0.8667,
+      "scanner_confidence": 0.6001,
+      "scanner_notes": [
+        "motion=0.250"
+      ]
+    },
+    {
+      "index": 4,
+      "start": 0.8667,
+      "end": 1.1333,
+      "duration": 0.2666,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "whip_pan",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 0.8667,
+      "source_end": 1.1333,
+      "scanner_confidence": 0.5816,
+      "scanner_notes": [
+        "motion=0.158"
+      ]
+    },
+    {
+      "index": 5,
+      "start": 1.1333,
+      "end": 1.4,
+      "duration": 0.2667,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "rgb_glitch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.4689063826495648,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 1.1333,
+      "source_end": 1.4,
+      "scanner_confidence": 0.6438,
+      "scanner_notes": [
+        "motion=0.469"
+      ]
+    },
+    {
+      "index": 6,
+      "start": 1.4,
+      "end": 1.6,
+      "duration": 0.2,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "motion_blur",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 1.4,
+      "source_end": 1.6,
+      "scanner_confidence": 0.5965,
+      "scanner_notes": [
+        "motion=0.233"
+      ]
+    },
+    {
+      "index": 7,
+      "start": 1.6,
+      "end": 1.8333,
+      "duration": 0.2333,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "rotate_shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 1.6,
+      "source_end": 1.8333,
+      "scanner_confidence": 0.5803,
+      "scanner_notes": [
+        "motion=0.152"
+      ]
+    },
+    {
+      "index": 8,
+      "start": 1.8333,
+      "end": 2.0667,
+      "duration": 0.2334,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "pixel_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 1.8333,
+      "source_end": 2.0667,
+      "scanner_confidence": 0.621,
+      "scanner_notes": [
+        "motion=0.355"
+      ]
+    },
+    {
+      "index": 9,
+      "start": 2.0667,
+      "end": 2.3,
+      "duration": 0.2333,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "whip_pan",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 2.0667,
+      "source_end": 2.3,
+      "scanner_confidence": 0.6294,
+      "scanner_notes": [
+        "motion=0.397"
+      ]
+    },
+    {
+      "index": 10,
+      "start": 2.3,
+      "end": 2.5667,
+      "duration": 0.2667,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "rgb_glitch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 2.3,
+      "source_end": 2.5667,
+      "scanner_confidence": 0.587,
+      "scanner_notes": [
+        "motion=0.185"
+      ]
+    },
+    {
+      "index": 11,
+      "start": 2.5667,
+      "end": 2.7667,
+      "duration": 0.2,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "motion_blur",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 2.5667,
+      "source_end": 2.7667,
+      "scanner_confidence": 0.5996,
+      "scanner_notes": [
+        "motion=0.248"
+      ]
+    },
+    {
+      "index": 12,
+      "start": 2.7667,
+      "end": 3.0667,
+      "duration": 0.3,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "rotate_shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 2.7667,
+      "source_end": 3.0667,
+      "scanner_confidence": 0.579,
+      "scanner_notes": [
+        "motion=0.145"
+      ]
+    },
+    {
+      "index": 13,
+      "start": 3.0667,
+      "end": 3.3,
+      "duration": 0.2333,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "pixel_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 3.0667,
+      "source_end": 3.3,
+      "scanner_confidence": 0.6012,
+      "scanner_notes": [
+        "motion=0.256"
+      ]
+    },
+    {
+      "index": 14,
+      "start": 3.3,
+      "end": 3.6,
+      "duration": 0.3,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "whip_pan",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "black_flash",
+        "duration": 0.09,
+        "metadata": {
+          "scanner_time": 3.4333,
+          "intensity": 1.0
+        }
+      },
+      "source_start": 3.3,
+      "source_end": 3.6,
+      "scanner_confidence": 0.7749,
+      "scanner_notes": [
+        "motion=0.375",
+        "flash=black_flash@3.433"
+      ]
+    },
+    {
+      "index": 15,
+      "start": 3.6,
+      "end": 4.0,
+      "duration": 0.4,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "rgb_glitch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 3.6,
+      "source_end": 4.0,
+      "scanner_confidence": 0.5676,
+      "scanner_notes": [
+        "motion=0.088"
+      ]
+    },
+    {
+      "index": 16,
+      "start": 4.0,
+      "end": 5.6667,
+      "duration": 1.6667,
+      "slot_type": "detail",
+      "required_clip_type": "detail",
+      "effect": {
+        "type": "slow_zoom",
+        "zoom_start": 1.0,
+        "zoom_end": 1.06,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "longer segment"
+        }
+      },
+      "transition_out": {
+        "type": "fade",
+        "duration": 0.12,
+        "metadata": {
+          "reason": "long segment"
+        }
+      },
+      "source_start": 4.0,
+      "source_end": 5.6667,
+      "scanner_confidence": 0.5778,
+      "scanner_notes": [
+        "motion=0.139"
+      ]
+    },
+    {
+      "index": 17,
+      "start": 5.6667,
+      "end": 5.9333,
+      "duration": 0.2666,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "rotate_shake",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 5.6667,
+      "source_end": 5.9333,
+      "scanner_confidence": 0.6198,
+      "scanner_notes": [
+        "motion=0.349"
+      ]
+    },
+    {
+      "index": 18,
+      "start": 5.9333,
+      "end": 6.3667,
+      "duration": 0.4334,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "pixel_punch",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.45,
+        "duration": null,
+        "metadata": {
+          "reason": "high motion"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 5.9333,
+      "source_end": 6.3667,
+      "scanner_confidence": 0.6005,
+      "scanner_notes": [
+        "motion=0.252"
+      ]
+    },
+    {
+      "index": 19,
+      "start": 6.3667,
+      "end": 7.1333,
+      "duration": 0.7666,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 6.3667,
+      "source_end": 7.1333,
+      "scanner_confidence": 0.6081,
+      "scanner_notes": [
+        "motion=0.290"
+      ]
+    },
+    {
+      "index": 20,
+      "start": 7.1333,
+      "end": 7.8667,
+      "duration": 0.7334,
+      "slot_type": "detail",
+      "required_clip_type": "detail",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 7.1333,
+      "source_end": 7.8667,
+      "scanner_confidence": 0.5972,
+      "scanner_notes": [
+        "motion=0.236"
+      ]
+    },
+    {
+      "index": 21,
+      "start": 7.8667,
+      "end": 8.5667,
+      "duration": 0.7,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 7.8667,
+      "source_end": 8.5667,
+      "scanner_confidence": 0.5917,
+      "scanner_notes": [
+        "motion=0.209"
+      ]
+    },
+    {
+      "index": 22,
+      "start": 8.5667,
+      "end": 9.3,
+      "duration": 0.7333,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 8.5667,
+      "source_end": 9.3,
+      "scanner_confidence": 0.6036,
+      "scanner_notes": [
+        "motion=0.268"
+      ]
+    },
+    {
+      "index": 23,
+      "start": 9.3,
+      "end": 10.0667,
+      "duration": 0.7667,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 9.3,
+      "source_end": 10.0667,
+      "scanner_confidence": 0.6049,
+      "scanner_notes": [
+        "motion=0.274"
+      ]
+    },
+    {
+      "index": 24,
+      "start": 10.0667,
+      "end": 10.8,
+      "duration": 0.7333,
+      "slot_type": "reveal",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "none",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": null,
+        "duration": null,
+        "metadata": {
+          "reason": "short clean cut"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 10.0667,
+      "source_end": 10.8,
+      "scanner_confidence": 0.5988,
+      "scanner_notes": [
+        "motion=0.244"
+      ]
+    },
+    {
+      "index": 25,
+      "start": 10.8,
+      "end": 11.5,
+      "duration": 0.7,
+      "slot_type": "reveal",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "vignette_focus",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.55,
+        "duration": null,
+        "metadata": {
+          "reason": "ending/reveal emphasis"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 10.8,
+      "source_end": 11.5,
+      "scanner_confidence": 0.5901,
+      "scanner_notes": [
+        "motion=0.201"
+      ]
+    },
+    {
+      "index": 26,
+      "start": 11.5,
+      "end": 12.2,
+      "duration": 0.7,
+      "slot_type": "ending",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "vignette_focus",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.55,
+        "duration": null,
+        "metadata": {
+          "reason": "ending/reveal emphasis"
+        }
+      },
+      "transition_out": {
+        "type": "cut",
+        "duration": null,
+        "metadata": {}
+      },
+      "source_start": 11.5,
+      "source_end": 12.2,
+      "scanner_confidence": 0.6001,
+      "scanner_notes": [
+        "motion=0.250"
+      ]
+    },
+    {
+      "index": 27,
+      "start": 12.2,
+      "end": 13.0333,
+      "duration": 0.8333,
+      "slot_type": "ending",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "vignette_focus",
+        "zoom_start": null,
+        "zoom_end": null,
+        "intensity": 0.55,
+        "duration": null,
+        "metadata": {
+          "reason": "ending/reveal emphasis"
+        }
+      },
+      "transition_out": {
+        "type": "black_flash",
+        "duration": 0.09,
+        "metadata": {
+          "scanner_time": 12.2333,
+          "intensity": 0.3243
+        }
+      },
+      "source_start": 12.2,
+      "source_end": 13.0333,
+      "scanner_confidence": 0.7145,
+      "scanner_notes": [
+        "motion=0.073",
+        "flash=black_flash@12.233"
+      ]
+    }
+  ],
+  "global_style": {
+    "color_grade": "neutral",
+    "film_grain": true,
+    "sharpen": true
+  },
+  "scanner_metadata": {
+    "source_video": "Montagem Tentana Trend 1.mp4",
+    "source_duration": 13.033333,
+    "source_width": 480,
+    "source_height": 640,
+    "source_fps": 30.0,
+    "unsupported_visual_features_recorded": [
+      "photo_wall_or_collage",
+      "duplicate_subject",
+      "masked_overlays",
+      "glow_trails",
+      "text_or_watermark_recreation"
+    ]
+  }
+}

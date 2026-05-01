@@ -1,0 +1,259 @@
+{
+  "template_id": "fast_glitch_reveal_001",
+  "name": "Fast Glitch Reveal",
+  "version": "1.0",
+  "aspect_ratio": "9:16",
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "fps": 30,
+  "total_duration": 15.0,
+  "music_mode": "user_song",
+  "beat_sync": false,
+  "beat_sync_tolerance": 0.12,
+  "segments": [
+    {
+      "index": 0,
+      "start": 0.0,
+      "end": 0.8,
+      "duration": 0.8,
+      "slot_type": "intro",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "slow_zoom",
+        "zoom_start": 1.0,
+        "zoom_end": 1.06
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    },
+    {
+      "index": 1,
+      "start": 0.8,
+      "end": 1.5,
+      "duration": 0.7,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "intensity": 0.45
+      },
+      "transition_out": {
+        "type": "white_flash",
+        "duration": 0.12
+      }
+    },
+    {
+      "index": 2,
+      "start": 1.5,
+      "end": 2.3,
+      "duration": 0.8,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "slow_zoom",
+        "zoom_start": 1.0,
+        "zoom_end": 1.04
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    },
+    {
+      "index": 3,
+      "start": 2.3,
+      "end": 3.1,
+      "duration": 0.8,
+      "slot_type": "detail",
+      "required_clip_type": "detail",
+      "effect": {
+        "type": "zoom_punch",
+        "intensity": 0.55
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    },
+    {
+      "index": 4,
+      "start": 3.1,
+      "end": 3.8,
+      "duration": 0.7,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "intensity": 0.5
+      },
+      "transition_out": {
+        "type": "white_flash",
+        "duration": 0.12
+      }
+    },
+    {
+      "index": 5,
+      "start": 3.8,
+      "end": 4.8,
+      "duration": 1.0,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "slow_zoom",
+        "zoom_start": 1.0,
+        "zoom_end": 1.05
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    },
+    {
+      "index": 6,
+      "start": 4.8,
+      "end": 5.6,
+      "duration": 0.8,
+      "slot_type": "detail",
+      "required_clip_type": "detail",
+      "effect": {
+        "type": "zoom_punch",
+        "intensity": 0.65
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    },
+    {
+      "index": 7,
+      "start": 5.6,
+      "end": 6.4,
+      "duration": 0.8,
+      "slot_type": "transition",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "intensity": 0.5
+      },
+      "transition_out": {
+        "type": "white_flash",
+        "duration": 0.14
+      }
+    },
+    {
+      "index": 8,
+      "start": 6.4,
+      "end": 7.4,
+      "duration": 1.0,
+      "slot_type": "process",
+      "required_clip_type": "process",
+      "effect": {
+        "type": "slow_zoom",
+        "zoom_start": 1.0,
+        "zoom_end": 1.05
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    },
+    {
+      "index": 9,
+      "start": 7.4,
+      "end": 8.2,
+      "duration": 0.8,
+      "slot_type": "high_energy",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "intensity": 0.55
+      },
+      "transition_out": {
+        "type": "white_flash",
+        "duration": 0.12
+      }
+    },
+    {
+      "index": 10,
+      "start": 8.2,
+      "end": 9.4,
+      "duration": 1.2,
+      "slot_type": "detail",
+      "required_clip_type": "detail",
+      "effect": {
+        "type": "slow_zoom",
+        "zoom_start": 1.0,
+        "zoom_end": 1.08
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    },
+    {
+      "index": 11,
+      "start": 9.4,
+      "end": 10.2,
+      "duration": 0.8,
+      "slot_type": "transition",
+      "required_clip_type": "motion",
+      "effect": {
+        "type": "shake",
+        "intensity": 0.45
+      },
+      "transition_out": {
+        "type": "white_flash",
+        "duration": 0.14
+      }
+    },
+    {
+      "index": 12,
+      "start": 10.2,
+      "end": 11.4,
+      "duration": 1.2,
+      "slot_type": "reveal",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "zoom_punch",
+        "intensity": 0.8
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    },
+    {
+      "index": 13,
+      "start": 11.4,
+      "end": 13.0,
+      "duration": 1.6,
+      "slot_type": "ending",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "slow_zoom",
+        "zoom_start": 1.0,
+        "zoom_end": 1.08
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    },
+    {
+      "index": 14,
+      "start": 13.0,
+      "end": 15.0,
+      "duration": 2.0,
+      "slot_type": "ending",
+      "required_clip_type": "final_reveal",
+      "effect": {
+        "type": "slow_zoom",
+        "zoom_start": 1.0,
+        "zoom_end": 1.04
+      },
+      "transition_out": {
+        "type": "cut"
+      }
+    }
+  ],
+  "global_style": {
+    "color_grade": "high_contrast_dark",
+    "film_grain": true,
+    "sharpen": true
+  }
+}

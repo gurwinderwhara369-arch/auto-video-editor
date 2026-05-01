@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel stack">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Job</p>
+      <h1>{{ job.job_id }}</h1>
+    </div>
+    <span class="status-pill status-{{ job.status }}">{{ job.status }}</span>
+  </div>
+  <div class="progress-card">
+    <strong id="step">{{ job.step }}</strong>
+    <p id="updated" class="muted">Updated {{ job.updated_at }}</p>
+  </div>
+  <ol id="events" class="events">
+    {% for event in job.events %}
+      <li><span>{{ event.time }}</span>{{ event.message }}</li>
+    {% endfor %}
+  </ol>
+  <div class="actions">
+    <a class="button" href="/">New job</a>
+    {% if job.status == "completed" %}
+      <a class="button primary" href="/jobs/{{ job.job_id }}/results">View results</a>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+const jobId = "{{ job.job_id }}";
+async function refreshJob() {
+  const response = await fetch(`/api/jobs/${jobId}`);
+  const job = await response.json();
+  document.querySelector(".status-pill").textContent = job.status;
+  document.querySelector(".status-pill").className = `status-pill status-${job.status}`;
+  document.getElementById("step").textContent = job.step || "";
+  document.getElementById("updated").textContent = `Updated ${job.updated_at}`;
+  const events = document.getElementById("events");
+  events.innerHTML = (job.events || []).map(event => `<li><span>${event.time}</span>${event.message}</li>`).join("");
+  if (job.status === "completed") window.location.href = `/jobs/${jobId}/results`;
+  if (job.status === "failed") return;
+  setTimeout(refreshJob, 2500);
+}
+{% if job.status in ["queued", "running"] %}
+setTimeout(refreshJob, 1500);
+{% endif %}
+</script>
+{% endblock %}

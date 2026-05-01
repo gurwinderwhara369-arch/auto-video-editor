@@ -1,0 +1,13 @@
+pydantic>=2.7,<3
+pytest>=8.0,<9
+opencv-python-headless>=4.9,<5
+numpy>=1.26,<3
+librosa>=0.10,<1
+soundfile>=0.12,<1
+requests>=2.31,<3
+rembg>=2.0,<3
+fastapi>=0.136,<1
+uvicorn>=0.46,<1
+python-multipart>=0.0.27,<1
+jinja2>=3.1,<4
+httpx>=0.28,<1

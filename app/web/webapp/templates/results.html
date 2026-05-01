@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel stack">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Selected render</p>
+      <h1>{{ job.job_id }}</h1>
+    </div>
+    <span class="status-pill status-completed">completed</span>
+  </div>
+
+  {% set final_href = media_href(artifacts.final) %}
+  {% if final_href %}
+    <video class="hero-video" src="{{ final_href }}" controls playsinline></video>
+  {% endif %}
+
+  {% if qa_report %}
+    <div class="score-row">
+      <div class="score-card selected">
+        <span>Selected</span>
+        <strong>{{ qa_report.selected_variant }}</strong>
+      </div>
+      {% for item in qa_report.variants %}
+        <div class="score-card">
+          <span>{{ item.variant }}</span>
+          <strong>{{ item.qa.score }}</strong>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+
+<section class="grid three">
+  {% for variant in ["clean", "balanced", "aggressive"] %}
+    {% set href = media_href(artifacts.get(variant)) %}
+    <article class="panel stack">
+      <h2>{{ variant|title }}</h2>
+      {% if href %}
+        <video class="thumb-video" src="{{ href }}" controls playsinline></video>
+        <a class="button" href="{{ href }}">Open MP4</a>
+      {% else %}
+        <p class="muted">No output.</p>
+      {% endif %}
+    </article>
+  {% endfor %}
+</section>
+
+<section class="panel">
+  <div class="section-head">
+    <h2>Artifacts</h2>
+  </div>
+  <div class="artifact-grid">
+    {% for name, path in artifacts.items() %}
+      {% set href = media_href(path) %}
+      {% if href %}
+        <a href="{{ href }}">{{ name }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
