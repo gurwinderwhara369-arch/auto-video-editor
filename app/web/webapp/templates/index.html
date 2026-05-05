@@ -1,75 +1,165 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="grid two">
-  <form class="panel stack" action="/jobs" method="post" enctype="multipart/form-data">
-    <div>
-      <p class="eyebrow">One-click pipeline</p>
-      <h1>Render a trend-style tattoo reel</h1>
+<section class="studio-shell">
+  <aside class="studio-sidebar">
+    <div class="sidebar-title">
+      <p class="eyebrow">Workspace</p>
+      <h1>Tattoo Reel Studio</h1>
     </div>
-
-    <label>
-      <span>Trend video path</span>
-      <input name="trend_path" value="{{ defaults.trend_path }}" placeholder="Montagem Tentana Trend 1.mp4">
-    </label>
-    <label>
-      <span>Or upload trend video</span>
-      <input name="trend_upload" type="file" accept="video/*">
-    </label>
-
-    <label>
-      <span>Tattoo clips folder path</span>
-      <input name="clips_path" value="{{ defaults.clips_path }}" placeholder="raw videos of tatoo process">
-    </label>
-    <label>
-      <span>Or upload tattoo clips</span>
-      <input name="clip_uploads" type="file" accept="video/*" multiple>
-    </label>
-
-    <label>
-      <span>Existing clip metadata</span>
-      <input name="metadata_path" value="{{ defaults.metadata_path }}">
-    </label>
-    <label>
-      <span>Existing moment metadata</span>
-      <input name="moments_path" value="{{ defaults.moments_path }}">
-    </label>
-    <label>
-      <span>Output name</span>
-      <input name="output_name" value="{{ defaults.output_name }}">
-    </label>
-
-    <button class="primary" type="submit">Render Reel</button>
-  </form>
-
-  <aside class="panel stack">
-    <div>
-      <p class="eyebrow">What runs</p>
-      <h2>Full engine path</h2>
+    <a class="side-action active" href="#create">Start New Reel</a>
+    <a class="side-action" href="#jobs">Production Jobs</a>
+    <div class="side-note">
+      <span>Engine</span>
+      <strong>Local Codespace</strong>
     </div>
-    <ol class="steps">
-      <li>Scan trend timing and effects</li>
-      <li>Extract trend audio and beats</li>
-      <li>Analyze tattoo clips and moments</li>
-      <li>Render clean, balanced, aggressive</li>
-      <li>QA selects the final MP4</li>
-    </ol>
   </aside>
+
+  <div class="studio-main">
+    <section class="studio-hero-bar">
+      <div>
+        <p class="eyebrow">Create</p>
+        <h2>Start New Reel</h2>
+        <p class="muted">One workflow for trend templates, tattoo footage, live rendering, and review.</p>
+      </div>
+      <a class="button primary" href="#create">New Render</a>
+    </section>
+
+    <section id="create" class="workspace-panel">
+      <div class="workspace-head">
+        <div>
+          <p class="eyebrow">Create</p>
+          <h2>Start New Reel</h2>
+          <p class="muted">Choose a template route, add tattoo footage, then render reviewable variants.</p>
+        </div>
+        <div class="phase-mini">
+          <span>Template</span>
+          <span>Footage</span>
+          <span>Render</span>
+          <span>Review</span>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab-button active" type="button" data-tab="available">Available Template</button>
+        <button class="tab-button" type="button" data-tab="scan">Scan New Trend</button>
+        <button class="tab-button" type="button" data-tab="advanced">Advanced</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-available">
+        <form class="studio-form pro-form" action="/jobs" method="post" enctype="multipart/form-data">
+          <div class="form-grid">
+            <div class="form-section">
+              <div class="section-label">Template</div>
+              <div class="preset-list pro-list">
+                {% for template in available_templates %}
+                  <label class="preset-card pro-card">
+                    <input type="radio" name="template_path" value="{{ template.path }}" {% if loop.first %}checked{% endif %}>
+                    <span>
+                      <strong>{{ template.name }}</strong>
+                      <small>{{ template.duration or "?" }}s · {{ template.segments or "?" }} cuts · {{ template.path }}</small>
+                    </span>
+                  </label>
+                {% else %}
+                  <div class="empty-card">No templates found in the templates folder.</div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="section-label">Footage</div>
+              <label class="field-row">
+                <span>Clips folder</span>
+                <input name="clips_path" value="{{ defaults.clips_path }}">
+              </label>
+              <label class="field-row">
+                <span>Upload clips</span>
+                <input name="clip_uploads" type="file" accept="video/*" multiple>
+              </label>
+              <label class="field-row">
+                <span>Output name</span>
+                <input name="output_name" value="{{ defaults.output_name }}">
+              </label>
+            </div>
+          </div>
+
+          <details class="advanced compact-advanced">
+            <summary>Engine paths</summary>
+            <div class="advanced-grid">
+              <label><span>Reference trend audio/video</span><input name="trend_path" value="{{ defaults.trend_path }}"></label>
+              <label><span>Clip metadata</span><input name="metadata_path" value="{{ defaults.metadata_path }}"></label>
+              <label><span>Moment metadata</span><input name="moments_path" value="{{ defaults.moments_path }}"></label>
+            </div>
+          </details>
+
+          <button class="primary render-button" type="submit">Render Reel</button>
+        </form>
+      </div>
+
+      <div class="tab-panel" id="tab-scan">
+        <form class="studio-form pro-form" action="/template-scans" method="post" enctype="multipart/form-data">
+          <div class="form-grid two-equal">
+            <div class="form-section">
+              <div class="section-label">Trend source</div>
+              <label class="field-row">
+                <span>Trend video path</span>
+                <input name="trend_path" value="{{ defaults.trend_path }}">
+              </label>
+              <label class="field-row">
+                <span>Upload trend video</span>
+                <input name="trend_upload" type="file" accept="video/*">
+              </label>
+            </div>
+            <div class="scan-brief">
+              <strong>Scan first, render after confirmation.</strong>
+              <p>Detects timing, cuts, beat structure, flash hits, and style. The next screen shows a summary before using the template.</p>
+            </div>
+          </div>
+          <button class="button scan-button" type="submit">Scan Trend Template</button>
+        </form>
+      </div>
+
+      <div class="tab-panel" id="tab-advanced">
+        <div class="developer-panel">
+          <p class="eyebrow">Developer controls</p>
+          <h3>Advanced paths are available inside each workflow.</h3>
+          <p class="muted">Use this only when you want to override generated metadata, moment analysis, or reference media. Normal renders should leave these blank so the engine validates and regenerates safely.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="jobs" class="workspace-panel">
+      <div class="workspace-head">
+        <div>
+          <p class="eyebrow">Production</p>
+          <h2>Recent Jobs</h2>
+        </div>
+      </div>
+      <div class="production-table">
+        {% for job in jobs %}
+          <a class="production-row" href="{% if job.job_type == 'template_scan' %}/template-scans/{{ job.job_id }}{% else %}/jobs/{{ job.job_id }}{% endif %}">
+            <span>
+              <strong>{{ job.job_id }}</strong>
+              <small>{{ job.current_stage_label }}</small>
+            </span>
+            <span class="phase-tag">{{ job.phase or "template" }}</span>
+            <span class="status-pill status-{{ job.status }}">{{ job.status }}</span>
+          </a>
+        {% else %}
+          <div class="empty-card">No jobs yet. Start a reel above.</div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
 </section>
 
-<section class="panel">
-  <div class="section-head">
-    <h2>Recent jobs</h2>
-  </div>
-  <div class="job-list">
-    {% for job in jobs %}
-      <a class="job-row" href="/jobs/{{ job.job_id }}">
-        <strong>{{ job.job_id }}</strong>
-        <span>{{ job.status }}</span>
-        <small>{{ job.step }}</small>
-      </a>
-    {% else %}
-      <p class="muted">No web jobs yet.</p>
-    {% endfor %}
-  </div>
-</section>
+<script>
+document.querySelectorAll(".tab-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".tab-button").forEach((item) => item.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.remove("active"));
+    button.classList.add("active");
+    document.getElementById(`tab-${button.dataset.tab}`).classList.add("active");
+  });
+});
+</script>
 {% endblock %}
