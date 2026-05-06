@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="command-center">
+  <div class="command-head">
+    <div>
+      <p class="eyebrow">Template scan</p>
+      <h1>{{ job.current_stage_label }}</h1>
+      <p class="muted job-id">{{ job.job_id }}</p>
+    </div>
+    <span class="status-pill status-{{ job.status }}">{{ job.status }}</span>
+  </div>
+
+  <nav class="process-rail pro-rail" aria-label="Studio process">
+    {% for phase in job.phase_progress %}
+      <span class="process-step {{ phase.state }}">{{ phase.label }}</span>
+    {% endfor %}
+  </nav>
+
+  {% if job.status == "completed" %}
+    {% set summary = job.summary or {} %}
+    <section class="workspace-panel stack">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Scan summary</p>
+          <h2>Template ready for footage</h2>
+        </div>
+        <a class="button" href="/">Back to Studio</a>
+      </div>
+      <div class="metric-grid scan-metrics">
+        <div class="metric-card"><span>Duration</span><strong>{{ summary.duration or "—" }}s</strong></div>
+        <div class="metric-card"><span>Segments</span><strong>{{ summary.segments or "—" }}</strong></div>
+        <div class="metric-card"><span>Cuts</span><strong>{{ summary.cuts or "—" }}</strong></div>
+        <div class="metric-card"><span>Beats</span><strong>{{ summary.beats or "—" }}</strong></div>
+        <div class="metric-card"><span>Flashes</span><strong>{{ summary.flashes or 0 }}</strong></div>
+        <div class="metric-card wide"><span>Style</span><strong>{{ summary.style.color_grade if summary.style and summary.style.color_grade else "Detected" }}</strong></div>
+      </div>
+
+      <form class="confirm-form pro-form" action="/jobs" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="trend_path" value="{{ job.config.trend_video }}">
+        <input type="hidden" name="template_path" value="{{ job.artifacts.template }}">
+        <div class="form-grid">
+          <div class="form-section">
+            <div class="section-label">Footage</div>
+            <label class="field-row"><span>Clips folder</span><input name="clips_path" value="{{ defaults.clips_path }}"></label>
+            <label class="field-row"><span>Upload clips</span><input name="clip_uploads" type="file" accept="video/*" multiple></label>
+          </div>
+          <div class="form-section">
+            <div class="section-label">Output</div>
+            <label class="field-row"><span>Final video name</span><input name="output_name" value="{{ defaults.output_name }}"></label>
+            <details class="advanced compact-advanced">
+              <summary>Engine paths</summary>
+              <div class="advanced-grid">
+                <label><span>Clip metadata</span><input name="metadata_path" value="{{ defaults.metadata_path }}"></label>
+                <label><span>Moment metadata</span><input name="moments_path" value="{{ defaults.moments_path }}"></label>
+              </div>
+            </details>
+          </div>
+        </div>
+        <button class="primary render-button" type="submit">Use This Template & Continue</button>
+      </form>
+    </section>
+  {% elif job.status == "failed" %}
+    <section class="workspace-panel stack">
+      <div class="error-card clean-error">
+        <strong>{{ job.short_error or "Scan failed" }}</strong>
+        <p>The template scan stopped. Check developer details for the backend output.</p>
+      </div>
+      <a class="button" href="/">Back to Studio</a>
+    </section>
+  {% else %}
+    <section class="workspace-panel current-stage">
+      <p class="eyebrow">Current Stage</p>
+      <h2>{{ job.step }}</h2>
+      <p class="muted">Updated {{ job.updated_at }}</p>
+    </section>
+  {% endif %}
+
+  <section class="workspace-panel live-log">
+    <p class="eyebrow">Live Log</p>
+    <ol id="events" class="events live-events">
+      {% for event in job.events %}
+        <li><span>{{ event.time }}</span>{{ event.message }}</li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <details class="workspace-panel developer-details">
+    <summary>Developer artifacts</summary>
+    <div class="artifact-grid">
+      {% for name, path in (job.artifacts or {}).items() %}
+        <span>{{ name }}: {{ path }}</span>
+      {% endfor %}
+    </div>
+  </details>
+</section>
+
+<script>
+const scanJobId = "{{ job.job_id }}";
+async function refreshScan() {
+  const response = await fetch(`/api/jobs/${scanJobId}`);
+  const job = await response.json();
+  document.getElementById("events").innerHTML = (job.events || []).map(event => `<li><span>${event.time}</span>${event.message}</li>`).join("");
+  if (job.status === "completed" || job.status === "failed") window.location.reload();
+  setTimeout(refreshScan, 2500);
+}
+{% if job.status in ["queued", "running"] %}
+setTimeout(refreshScan, 1500);
+{% endif %}
+</script>
+{% endblock %}
