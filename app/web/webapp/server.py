@@ -15,6 +15,8 @@ from app.web.webapp.jobs import (
     UPLOADS_DIR,
     JobConfig,
     create_job,
+    create_scan_job,
+    list_templates,
     list_jobs,
     load_status,
     media_href,
@@ -37,12 +39,15 @@ async def home(request: Request) -> HTMLResponse:
         context={
             "request": request,
             "jobs": list_jobs()[:8],
+            "available_templates": list_templates(),
             "defaults": {
                 "trend_path": "assets/reference_trends/Montagem Tentana Trend 1.mp4",
                 "clips_path": "assets/sample_raw_clips/tattoo_process",
-                "metadata_path": "workspace/jobs/tattoo_raw/enriched_clip_metadata.json",
-                "moments_path": "workspace/jobs/tattoo_raw/moment_metadata.json",
+                "template_path": "templates/montagem_tentana.json",
+                "metadata_path": "",
+                "moments_path": "",
                 "output_name": "final_selected_tattoo_reel.mp4",
+                "render_mode": "pro_layer",
             },
         },
     )
@@ -52,8 +57,10 @@ async def home(request: Request) -> HTMLResponse:
 async def create_render_job(
     trend_path: str = Form(""),
     clips_path: str = Form(""),
+    template_path: str = Form(""),
     metadata_path: str = Form(""),
     moments_path: str = Form(""),
+    render_mode: str = Form("pro_layer"),
     output_name: str = Form("final_selected_tattoo_reel.mp4"),
     trend_upload: UploadFile | None = File(None),
     clip_uploads: list[UploadFile] | None = File(None),
@@ -80,14 +87,57 @@ async def create_render_job(
         trend_video=trend_video,
         clips_dir=clips_dir,
         output_name=output_name or "final_selected_tattoo_reel.mp4",
+        template_path=resolve_workspace_path(template_path),
         metadata_path=resolve_workspace_path(metadata_path),
         moments_path=resolve_workspace_path(moments_path),
+        render_mode=render_mode,
     )
     try:
         create_job(config, job_id=job_id, autostart=True)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return RedirectResponse(url=f"/jobs/{job_id}", status_code=303)
+
+
+@app.post("/template-scans")
+async def create_template_scan(
+    trend_path: str = Form(""),
+    trend_upload: UploadFile | None = File(None),
+) -> RedirectResponse:
+    job_id = new_job_id()
+    upload_dir = UPLOADS_DIR / job_id
+    trend_video = resolve_workspace_path(trend_path)
+    if trend_upload and trend_upload.filename:
+        trend_video = await _save_upload(trend_upload, upload_dir / "trend")
+    if trend_video is None:
+        raise HTTPException(status_code=400, detail="Provide a trend video path or upload.")
+    try:
+        create_scan_job(trend_video, job_id=job_id, autostart=True)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return RedirectResponse(url=f"/template-scans/{job_id}", status_code=303)
+
+
+@app.get("/template-scans/{job_id}", response_class=HTMLResponse)
+async def template_scan_page(request: Request, job_id: str) -> HTMLResponse:
+    try:
+        status = load_status(job_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(status_code=404, detail="Template scan not found") from exc
+    return templates.TemplateResponse(
+        request,
+        "scan.html",
+        context={
+            "request": request,
+            "job": status,
+            "defaults": {
+                "clips_path": "assets/sample_raw_clips/tattoo_process",
+                "metadata_path": "",
+                "moments_path": "",
+                "output_name": "final_selected_tattoo_reel.mp4",
+            },
+        },
+    )
 
 
 @app.get("/jobs/{job_id}", response_class=HTMLResponse)

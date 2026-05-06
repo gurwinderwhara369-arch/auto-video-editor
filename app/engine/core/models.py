@@ -26,6 +26,21 @@ class Transition(BaseModel):
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 
+class VisualEvent(BaseModel):
+    type: str
+    start: float = Field(ge=0)
+    end: float | None = Field(default=None, ge=0)
+    intensity: float = Field(default=0.6, ge=0, le=1)
+    confidence: float = Field(default=0.6, ge=0, le=1)
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def validate_ranges(self) -> "VisualEvent":
+        if self.end is not None and self.end < self.start:
+            raise ValueError("visual event end must be greater than or equal to start")
+        return self
+
+
 class TemplateSegment(BaseModel):
     index: int = Field(ge=0)
     start: float = Field(ge=0)
@@ -39,6 +54,7 @@ class TemplateSegment(BaseModel):
     source_end: float | None = Field(default=None, ge=0)
     scanner_confidence: float | None = Field(default=None, ge=0, le=1)
     scanner_notes: list[str] = Field(default_factory=list)
+    visual_events: list[VisualEvent] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_timing(self) -> "TemplateSegment":
@@ -179,6 +195,7 @@ class TimelineSegment(BaseModel):
     transition_out: Transition = Field(default_factory=Transition)
     moment_id: str | None = None
     crop: CropMetadata | None = None
+    visual_events: list[VisualEvent] = Field(default_factory=list)
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 

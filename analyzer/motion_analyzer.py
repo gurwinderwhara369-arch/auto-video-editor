@@ -1,5 +1,4 @@
 from app.engine.analyzer.motion_analyzer import *
 
 if __name__ == "__main__":
-    from app.engine.analyzer.motion_analyzer import main
-    main()
+    raise SystemExit("analyzer.motion_analyzer is an import-only compatibility wrapper.")

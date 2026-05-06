@@ -41,23 +41,23 @@ def _render_segment(
         filters.append(f"fade=t=out:st={duration - flash_duration:.3f}:d={flash_duration:.3f}")
     elif segment.transition_out.type == "glitch":
         filters.append("hue=s=1.35,eq=contrast=1.16")
-    elif segment.transition_out.type in {"white_hit", "black_hit", "flash_hit"}:
+    elif segment.transition_out.type in {"white_hit", "black_hit", "flash_hit", "white_slam", "black_slam", "freeze_cut"}:
         hit_duration = min(flash_duration, max(1 / timeline.fps, duration * 0.35))
-        color = "black" if segment.transition_out.type == "black_hit" else "white"
+        color = "black" if segment.transition_out.type in {"black_hit", "black_slam"} else "white"
         filters.append(f"fade=t=out:st={duration - hit_duration:.3f}:d={hit_duration:.3f}:color={color}")
         if segment_index > 0 and segment.transition_out.type == "flash_hit" and duration > hit_duration * 2:
             filters.append(f"fade=t=in:st=0:d={hit_duration:.3f}:color=white")
-    elif segment.transition_out.type in {"red_hit", "invert_hit", "blur_hit", "strobe_hit"}:
+    elif segment.transition_out.type in {"red_hit", "invert_hit", "blur_hit", "strobe_hit", "red_slam", "glitch_slam", "blur_push", "panel_snap", "beat_stutter"}:
         hit_duration = min(flash_duration, max(1 / timeline.fps, duration * 0.35))
         hit_start = max(0.0, duration - hit_duration)
-        if segment.transition_out.type == "red_hit":
+        if segment.transition_out.type in {"red_hit", "red_slam"}:
             filters.append(
                 "colorchannelmixer=rr=1.35:gg=0.72:bb=0.72:"
                 f"enable='gte(t,{hit_start:.3f})'"
             )
-        elif segment.transition_out.type == "invert_hit":
+        elif segment.transition_out.type in {"invert_hit", "glitch_slam", "panel_snap", "beat_stutter"}:
             filters.append(f"negate=enable='gte(t,{hit_start:.3f})'")
-        elif segment.transition_out.type == "blur_hit":
+        elif segment.transition_out.type in {"blur_hit", "blur_push"}:
             filters.append(f"boxblur=8:2:enable='gte(t,{hit_start:.3f})'")
         elif segment.transition_out.type == "strobe_hit":
             filters.append(

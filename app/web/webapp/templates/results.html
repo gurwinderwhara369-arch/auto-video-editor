@@ -1,61 +1,89 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="panel stack">
-  <div class="section-head">
+<section class="review-workspace">
+  <div class="command-head">
     <div>
-      <p class="eyebrow">Selected render</p>
-      <h1>{{ job.job_id }}</h1>
+      <p class="eyebrow">Review</p>
+      <h1>Final reel selected.</h1>
+      <p class="muted job-id">{{ job.job_id }}</p>
     </div>
-    <span class="status-pill status-completed">completed</span>
+    <a class="button" href="/">Start New Reel</a>
   </div>
 
-  {% set final_href = media_href(artifacts.final) %}
-  {% if final_href %}
-    <video class="hero-video" src="{{ final_href }}" controls playsinline></video>
-  {% endif %}
+  <nav class="process-rail pro-rail" aria-label="Studio process">
+    {% for phase in job.phase_progress %}
+      <span class="process-step {{ phase.state }}">{{ phase.label }}</span>
+    {% endfor %}
+  </nav>
+
+  <section class="results-hero workspace-panel">
+    <div class="result-copy">
+      <p class="eyebrow">Selected output</p>
+      <h2>{{ qa_report.selected_variant|title if qa_report else "Final" }} variant</h2>
+      <div class="metric-grid compact-metrics">
+        <div class="metric-card"><span>QA</span><strong>{{ job.metrics.qa_score or "—" }}</strong></div>
+        <div class="metric-card"><span>Variants</span><strong>{{ job.metrics.variants or 0 }}</strong></div>
+        <div class="metric-card"><span>Clips</span><strong>{{ job.metrics.clips or "—" }}</strong></div>
+        <div class="metric-card"><span>Moments</span><strong>{{ job.metrics.moments or "—" }}</strong></div>
+      </div>
+      <div class="actions">
+        {% set final_href = media_href(artifacts.final) %}
+        {% if final_href %}
+          <a class="button primary" href="{{ final_href }}">Open Final MP4</a>
+        {% endif %}
+      </div>
+    </div>
+    {% if final_href %}
+      <video class="hero-video large-preview" src="{{ final_href }}" controls playsinline></video>
+    {% endif %}
+  </section>
 
   {% if qa_report %}
-    <div class="score-row">
-      <div class="score-card selected">
-        <span>Selected</span>
-        <strong>{{ qa_report.selected_variant }}</strong>
+    <section class="workspace-panel stack">
+      <div>
+        <p class="eyebrow">Variant Comparison</p>
+        <h2>Clean / Balanced / Aggressive</h2>
       </div>
-      {% for item in qa_report.variants %}
-        <div class="score-card">
-          <span>{{ item.variant }}</span>
-          <strong>{{ item.qa.score }}</strong>
-        </div>
+      <div class="variant-grid">
+        {% for item in qa_report.variants %}
+          {% set href = media_href(item.output) %}
+          <article class="variant-card {% if item.variant == qa_report.selected_variant %}selected{% endif %}">
+            <div class="section-head">
+              <div>
+                <h3>{{ item.variant|title }}</h3>
+                <p class="muted">QA {{ item.qa.score }}</p>
+              </div>
+              {% if item.variant == qa_report.selected_variant %}
+                <span class="mini-badge">Winner</span>
+              {% endif %}
+            </div>
+            {% if href %}
+              <video class="thumb-video" src="{{ href }}" controls playsinline></video>
+              <div class="variant-metrics">
+                <span>Brightness {{ item.qa.metrics.avg_brightness }}</span>
+                <span>Sharpness {{ item.qa.metrics.avg_sharpness }}</span>
+                <span>Motion {{ item.qa.metrics.avg_motion }}</span>
+              </div>
+              <a class="button" href="{{ href }}">Open Variant</a>
+            {% else %}
+              <p class="muted">No output.</p>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <details class="workspace-panel developer-details">
+    <summary>Developer Artifacts</summary>
+    <div class="artifact-grid">
+      {% for name, path in artifacts.items() %}
+        {% set href = media_href(path) %}
+        {% if href %}
+          <a href="{{ href }}">{{ name }}</a>
+        {% endif %}
       {% endfor %}
     </div>
-  {% endif %}
-</section>
-
-<section class="grid three">
-  {% for variant in ["clean", "balanced", "aggressive"] %}
-    {% set href = media_href(artifacts.get(variant)) %}
-    <article class="panel stack">
-      <h2>{{ variant|title }}</h2>
-      {% if href %}
-        <video class="thumb-video" src="{{ href }}" controls playsinline></video>
-        <a class="button" href="{{ href }}">Open MP4</a>
-      {% else %}
-        <p class="muted">No output.</p>
-      {% endif %}
-    </article>
-  {% endfor %}
-</section>
-
-<section class="panel">
-  <div class="section-head">
-    <h2>Artifacts</h2>
-  </div>
-  <div class="artifact-grid">
-    {% for name, path in artifacts.items() %}
-      {% set href = media_href(path) %}
-      {% if href %}
-        <a href="{{ href }}">{{ name }}</a>
-      {% endif %}
-    {% endfor %}
-  </div>
+  </details>
 </section>
 {% endblock %}

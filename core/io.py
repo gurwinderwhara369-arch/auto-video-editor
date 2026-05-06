@@ -1,5 +1,4 @@
 from app.engine.core.io import *
 
 if __name__ == "__main__":
-    from app.engine.core.io import main
-    main()
+    raise SystemExit("core.io is an import-only compatibility wrapper.")

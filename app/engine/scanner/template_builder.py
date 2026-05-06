@@ -20,6 +20,7 @@ from app.engine.scanner.motion_scanner import average_motion_between, detect_mot
 from app.engine.scanner.probe import probe_video
 from app.engine.scanner.scene_cut_detector import detect_scene_cuts
 from app.engine.scanner.style_scanner import summarize_style
+from app.engine.scanner.visual_event_scanner import detect_visual_events, events_for_segment, summarize_visual_events
 
 
 def build_template_from_reference(
@@ -47,6 +48,7 @@ def build_template_from_reference(
     cuts = detect_scene_cuts(stats, threshold=cut_threshold, min_gap_seconds=min_cut_gap)
     flashes = detect_flash_events(stats)
     motion_events = detect_motion_events(stats)
+    visual_events = detect_visual_events(stats, flashes=flashes, motion_events=motion_events)
 
     beat_map_payload = None
     beat_times: list[float] = []
@@ -76,6 +78,7 @@ def build_template_from_reference(
         flashes,
         strong_beats,
         duration=duration,
+        visual_events=visual_events,
     )
 
     recipe = TemplateRecipe(
@@ -128,6 +131,8 @@ def build_template_from_reference(
             "cuts": cuts,
             "flashes": flashes,
             "motion_events": motion_events,
+            "visual_events": visual_events,
+            "visual_event_summary": summarize_visual_events(visual_events),
             "beat_map": beat_map_payload,
             "extracted_audio": str(audio_extract_path) if audio_extract_path else None,
             "boundaries": boundaries,
@@ -176,6 +181,7 @@ def _build_segments(
     strong_beats: list[float],
     *,
     duration: float,
+    visual_events: list[dict] | None = None,
 ) -> list[TemplateSegment]:
     segments: list[TemplateSegment] = []
     last_index = len(boundaries) - 2
@@ -189,8 +195,9 @@ def _build_segments(
         flash = _event_between(flashes, start, end)
         has_strong_beat = any(start <= beat <= end for beat in strong_beats)
         slot_type, required_type = _slot_for_segment(index, last_index, motion, segment_duration)
-        effect = _effect_for_segment(motion, segment_duration, has_strong_beat, index, last_index, segment_stats)
-        transition = _transition_for_segment(flash, motion, segment_duration, index)
+        segment_visual_events = events_for_segment(visual_events or [], start, end)
+        effect = _effect_for_segment(motion, segment_duration, has_strong_beat, index, last_index, segment_stats, segment_visual_events)
+        transition = _transition_for_segment(flash, motion, segment_duration, index, segment_visual_events)
         confidence = _confidence_for_segment(motion, flash, has_strong_beat)
 
         segments.append(
@@ -206,7 +213,8 @@ def _build_segments(
                 source_start=round(start, 4),
                 source_end=round(end, 4),
                 scanner_confidence=confidence,
-                scanner_notes=_notes_for_segment(motion, flash, has_strong_beat),
+                scanner_notes=_notes_for_segment(motion, flash, has_strong_beat, segment_visual_events),
+                visual_events=segment_visual_events,
             )
         )
     return segments
@@ -248,6 +256,7 @@ def _effect_for_segment(
     index: int,
     last_index: int,
     segment_stats: list[FrameStat],
+    visual_events: list,
 ) -> Effect:
     brightness_values = [stat.brightness for stat in segment_stats]
     saturation_values = [stat.saturation for stat in segment_stats]
@@ -256,6 +265,19 @@ def _effect_for_segment(
     reveal_start = max(0, last_index - 2) if last_index >= 4 else last_index
     if index >= reveal_start:
         return Effect(type="vignette_focus", intensity=0.55, metadata={"reason": "ending/reveal emphasis"})
+    event_types = {event.type for event in visual_events}
+    if "panel_split" in event_types:
+        return Effect(type="split_panel", intensity=0.78, metadata={"reason": "visual_event_panel_split"})
+    if "freeze" in event_types:
+        return Effect(type="freeze_punch", intensity=0.76, metadata={"reason": "visual_event_freeze"})
+    if "echo_trail" in event_types:
+        return Effect(type="duplicate_subject_echo", intensity=0.7, metadata={"reason": "visual_event_echo"})
+    if "text_zone" in event_types:
+        return Effect(type="text_flash", intensity=0.55, metadata={"reason": "visual_event_text_zone"})
+    if "zoom_burst" in event_types:
+        return Effect(type="zoom_burst", intensity=0.75, metadata={"reason": "visual_event_zoom"})
+    if "background_pulse" in event_types:
+        return Effect(type="background_pulse", intensity=0.65, metadata={"reason": "visual_event_brightness_pulse"})
     if has_strong_beat:
         effect_type = ["impact_zoom", "whip_pan", "rgb_glitch", "strobe"][index % 4]
         return Effect(type=effect_type, intensity=0.72, metadata={"reason": "strong beat"})
@@ -271,9 +293,16 @@ def _effect_for_segment(
     return Effect(type="none", metadata={"reason": "short clean cut"})
 
 
-def _transition_for_segment(flash: dict | None, motion: float, duration: float, index: int) -> Transition:
+def _transition_for_segment(flash: dict | None, motion: float, duration: float, index: int, visual_events: list | None = None) -> Transition:
+    event_types = {event.type for event in visual_events or []}
+    if "freeze" in event_types and duration <= 0.65:
+        return Transition(type="freeze_cut", duration=0.06, metadata={"reason": "visual_event_freeze"})
+    if "panel_split" in event_types:
+        return Transition(type="panel_snap", duration=0.08, metadata={"reason": "visual_event_panel"})
+    if "shake_hit" in event_types:
+        return Transition(type="glitch_slam", duration=0.065, metadata={"reason": "visual_event_shake"})
     if flash:
-        flash_type = "flash_hit" if flash["type"] == "white_flash" and duration <= 0.5 else flash["type"]
+        flash_type = "white_slam" if flash["type"] == "white_flash" else "black_slam"
         return Transition(
             type=flash_type,
             duration=min(0.09, float(flash.get("duration", 0.12))),
@@ -296,12 +325,14 @@ def _confidence_for_segment(motion: float, flash: dict | None, has_strong_beat: 
     return round(min(1.0, confidence), 4)
 
 
-def _notes_for_segment(motion: float, flash: dict | None, has_strong_beat: bool) -> list[str]:
+def _notes_for_segment(motion: float, flash: dict | None, has_strong_beat: bool, visual_events: list | None = None) -> list[str]:
     notes = [f"motion={motion:.3f}"]
     if flash:
         notes.append(f"flash={flash['type']}@{flash['time']:.3f}")
     if has_strong_beat:
         notes.append("strong_beat_aligned")
+    for event in visual_events or []:
+        notes.append(f"visual={event.type}@{event.start:.3f}")
     return notes
 
 

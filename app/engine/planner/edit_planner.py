@@ -122,11 +122,20 @@ def _moment_matches_segment(moment: MomentMetadata, clip: ClipMetadata, segment:
     tags = set(clip.ai_tags)
     desired = segment.required_clip_type or segment.slot_type
     moment_type = moment.moment_type
+    event_types = {event.type for event in segment.visual_events}
 
     if segment.slot_type in {"high_energy", "transition"} or desired == "motion":
         score += moment.motion_score * 0.55
         if moment_type in {"needle_work", "wiping", "transition"}:
             score += 0.28
+    if event_types & {"echo_trail", "zoom_burst", "shake_hit", "flash_stack", "background_pulse"}:
+        score += moment.motion_score * 0.32
+        if moment_type in {"needle_work", "wiping", "transition"}:
+            score += 0.18
+    if event_types & {"text_zone", "freeze", "panel_split", "cutout_overlay"}:
+        score += moment.stability_score * 0.25 + moment.sharpness_score * 0.22
+        if moment_type in {"detail", "reveal_candidate", "intro"}:
+            score += 0.16
     if segment.slot_type in {"process", "detail"}:
         score += moment.sharpness_score * 0.35 + moment.stability_score * 0.18
         if moment_type in {"needle_work", "detail", "process"}:
@@ -222,6 +231,7 @@ def _pro_effect_for_segment(segment: TemplateSegment, segment_count: int) -> tup
     is_reveal = segment.slot_type in {"reveal", "ending"} or is_late
     is_fast = duration <= 0.42 or segment.slot_type in {"high_energy", "transition"}
     has_flash_note = any("flash=" in note for note in segment.scanner_notes)
+    event_types = {event.type for event in segment.visual_events}
     scanner_effects = {
         "impact_zoom",
         "rgb_glitch",
@@ -241,6 +251,32 @@ def _pro_effect_for_segment(segment: TemplateSegment, segment_count: int) -> tup
         effect = Effect(type="slow_zoom", intensity=0.45, zoom_end=1.06, metadata=metadata)
         transition = Transition(type="cut", metadata=transition_metadata)
         return effect, transition
+
+    visual_effect_map = {
+        "panel_split": "split_panel",
+        "freeze": "freeze_punch",
+        "echo_trail": "duplicate_subject_echo",
+        "cutout_overlay": "cutout_pop",
+        "text_zone": "text_flash",
+        "flash_stack": "beat_flash_stack",
+        "zoom_burst": "zoom_burst",
+        "shake_hit": "edge_glow",
+        "background_pulse": "background_pulse",
+        "blur_wall": "blur_wall",
+    }
+    for event_type, effect_type in visual_effect_map.items():
+        if event_type in event_types:
+            transition_type = {
+                "panel_split": "panel_snap",
+                "freeze": "freeze_cut",
+                "flash_stack": "white_slam",
+                "shake_hit": "glitch_slam",
+                "zoom_burst": "blur_push",
+            }.get(event_type, "cut")
+            return (
+                Effect(type=effect_type, intensity=max(0.55, intensity), metadata=metadata),
+                Transition(type=transition_type, duration=0.065 if transition_type != "cut" else None, metadata=transition_metadata),
+            )
 
     if is_fast:
         cycle = segment.index % 8
@@ -365,6 +401,7 @@ def build_timeline(
                 transition_out=transition_out,
                 moment_id=moment.moment_id if moment else None,
                 crop=moment.crop if moment else None,
+                visual_events=template_segment.visual_events,
             )
         )
         current_time = round(timeline_end, 6)

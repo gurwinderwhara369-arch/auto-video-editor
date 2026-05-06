@@ -21,6 +21,15 @@ HEAVY_EFFECTS = {
     "strobe",
     "vhs_noise",
     "pixel_punch",
+    "split_panel",
+    "beat_flash_stack",
+    "cutout_pop",
+    "duplicate_subject_echo",
+    "zoom_burst",
+    "background_pulse",
+    "text_flash",
+    "edge_glow",
+    "film_damage",
 }
 HIT_TRANSITIONS = {
     "flash_hit",
@@ -30,6 +39,14 @@ HIT_TRANSITIONS = {
     "invert_hit",
     "blur_hit",
     "strobe_hit",
+    "white_slam",
+    "black_slam",
+    "red_slam",
+    "glitch_slam",
+    "blur_push",
+    "panel_snap",
+    "freeze_cut",
+    "beat_stutter",
     "glitch",
 }
 

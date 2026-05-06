@@ -1,43 +1,110 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="panel stack">
-  <div class="section-head">
+<section class="command-center">
+  <div class="command-head">
     <div>
-      <p class="eyebrow">Job</p>
-      <h1>{{ job.job_id }}</h1>
+      <p class="eyebrow">Live processing</p>
+      <h1>{{ job.current_stage_label }}</h1>
+      <p class="muted job-id">{{ job.job_id }}</p>
     </div>
-    <span class="status-pill status-{{ job.status }}">{{ job.status }}</span>
+    <span id="status-pill" class="status-pill status-{{ job.status }}">{{ job.status }}</span>
   </div>
-  <div class="progress-card">
-    <strong id="step">{{ job.step }}</strong>
-    <p id="updated" class="muted">Updated {{ job.updated_at }}</p>
-  </div>
-  <ol id="events" class="events">
-    {% for event in job.events %}
-      <li><span>{{ event.time }}</span>{{ event.message }}</li>
+
+  <nav id="phase-rail" class="process-rail pro-rail" aria-label="Studio process">
+    {% for phase in job.phase_progress %}
+      <span class="process-step {{ phase.state }}">{{ phase.label }}</span>
     {% endfor %}
-  </ol>
-  <div class="actions">
-    <a class="button" href="/">New job</a>
-    {% if job.status == "completed" %}
-      <a class="button primary" href="/jobs/{{ job.job_id }}/results">View results</a>
-    {% endif %}
+  </nav>
+
+  <div class="command-grid">
+    <section class="workspace-panel current-stage">
+      <p class="eyebrow">Current Stage</p>
+      <h2 id="stage-title">{{ job.step }}</h2>
+      <p id="updated" class="muted">Updated {{ job.updated_at }}</p>
+      {% if job.status == "failed" %}
+        <div class="error-card clean-error">
+          <strong>{{ job.short_error or "Render failed" }}</strong>
+          <p>The engine stopped during this stage. Open developer details below for the full backend output.</p>
+        </div>
+      {% endif %}
+      <div class="actions">
+        <a class="button" href="/">Start New Reel</a>
+        {% if job.status == "completed" %}
+          <a class="button primary" href="/jobs/{{ job.job_id }}/results">Review Results</a>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="workspace-panel metrics-panel">
+      <p class="eyebrow">Processing Metrics</p>
+      <div id="metric-grid" class="metric-grid">
+        <div class="metric-card"><span>Clips</span><strong>{{ job.metrics.clips or "—" }}</strong></div>
+        <div class="metric-card"><span>Moments</span><strong>{{ job.metrics.moments or "—" }}</strong></div>
+        <div class="metric-card"><span>Beats</span><strong>{{ job.metrics.beats or "—" }}</strong></div>
+        <div class="metric-card"><span>Variants</span><strong>{{ job.metrics.variants or 0 }}</strong></div>
+        <div class="metric-card wide"><span>Selected</span><strong>{{ job.metrics.selected_variant or "Pending" }}</strong></div>
+        <div class="metric-card"><span>QA</span><strong>{{ job.metrics.qa_score or "—" }}</strong></div>
+      </div>
+    </section>
+
+    <section class="workspace-panel live-log">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Live Log</p>
+          <h2>Internal processing stream</h2>
+        </div>
+      </div>
+      <ol id="events" class="events live-events">
+        {% for event in job.events %}
+          <li><span>{{ event.time }}</span>{{ event.message }}</li>
+        {% endfor %}
+      </ol>
+    </section>
   </div>
+
+  {% if job.status == "failed" %}
+    <details class="workspace-panel developer-details" open>
+      <summary>Developer details</summary>
+      <pre>{{ job.error }}</pre>
+    </details>
+  {% endif %}
 </section>
 
 <script>
 const jobId = "{{ job.job_id }}";
+function valueOrDash(value) {
+  return value === null || value === undefined || value === "" ? "—" : value;
+}
+function renderPhases(phases) {
+  document.getElementById("phase-rail").innerHTML = (phases || []).map((phase) =>
+    `<span class="process-step ${phase.state}">${phase.label}</span>`
+  ).join("");
+}
+function renderMetrics(metrics) {
+  const selected = metrics?.selected_variant || "Pending";
+  document.getElementById("metric-grid").innerHTML = `
+    <div class="metric-card"><span>Clips</span><strong>${valueOrDash(metrics?.clips)}</strong></div>
+    <div class="metric-card"><span>Moments</span><strong>${valueOrDash(metrics?.moments)}</strong></div>
+    <div class="metric-card"><span>Beats</span><strong>${valueOrDash(metrics?.beats)}</strong></div>
+    <div class="metric-card"><span>Variants</span><strong>${metrics?.variants || 0}</strong></div>
+    <div class="metric-card wide"><span>Selected</span><strong>${selected}</strong></div>
+    <div class="metric-card"><span>QA</span><strong>${valueOrDash(metrics?.qa_score)}</strong></div>
+  `;
+}
 async function refreshJob() {
   const response = await fetch(`/api/jobs/${jobId}`);
   const job = await response.json();
-  document.querySelector(".status-pill").textContent = job.status;
-  document.querySelector(".status-pill").className = `status-pill status-${job.status}`;
-  document.getElementById("step").textContent = job.step || "";
+  const pill = document.getElementById("status-pill");
+  pill.textContent = job.status;
+  pill.className = `status-pill status-${job.status}`;
+  document.querySelector(".command-head h1").textContent = job.current_stage_label || job.step || "";
+  document.getElementById("stage-title").textContent = job.step || "";
   document.getElementById("updated").textContent = `Updated ${job.updated_at}`;
-  const events = document.getElementById("events");
-  events.innerHTML = (job.events || []).map(event => `<li><span>${event.time}</span>${event.message}</li>`).join("");
+  renderPhases(job.phase_progress);
+  renderMetrics(job.metrics || {});
+  document.getElementById("events").innerHTML = (job.events || []).map(event => `<li><span>${event.time}</span>${event.message}</li>`).join("");
   if (job.status === "completed") window.location.href = `/jobs/${jobId}/results`;
-  if (job.status === "failed") return;
+  if (job.status === "failed") window.location.reload();
   setTimeout(refreshJob, 2500);
 }
 {% if job.status in ["queued", "running"] %}

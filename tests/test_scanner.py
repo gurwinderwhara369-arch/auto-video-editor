@@ -5,6 +5,7 @@ from app.engine.scanner.flash_scanner import detect_flash_events
 from app.engine.scanner.frame_sampler import FrameStat
 from app.engine.scanner.scene_cut_detector import detect_scene_cuts
 from app.engine.scanner.template_builder import _build_boundaries, _build_segments
+from app.engine.scanner.visual_event_scanner import detect_visual_events
 
 
 def test_scene_cut_detector_finds_histogram_jump() -> None:
@@ -79,3 +80,36 @@ def test_scanner_maps_fast_motion_to_expanded_effects() -> None:
         "impact_zoom",
         "strobe",
     }
+
+
+def test_visual_event_scanner_detects_freeze_flash_and_text_like_moments() -> None:
+    stats = [
+        FrameStat(0.00, 0.4, 0.3, 0.5, 0.8, 0.0, 0.0, 0.0),
+        FrameStat(0.10, 0.4, 0.3, 0.5, 0.8, 0.0, 0.01, 0.005),
+        FrameStat(0.22, 0.4, 0.3, 0.5, 0.8, 0.0, 0.01, 0.005),
+        FrameStat(0.36, 0.9, 0.3, 0.5, 0.8, 0.9, 0.3, 0.2),
+    ]
+
+    events = detect_visual_events(
+        stats,
+        flashes=[{"time": 0.36, "type": "white_flash", "duration": 0.1, "intensity": 0.9}],
+        motion_events=[],
+    )
+    event_types = {event["type"] for event in events}
+
+    assert "freeze" in event_types
+    assert "flash_stack" in event_types
+    assert "text_zone" in event_types
+
+
+def test_template_builder_attaches_visual_events_to_segments() -> None:
+    stats = [
+        FrameStat(0.0, 0.4, 0.3, 0.5, 0.8, 0.0, 0.0, 0.0),
+        FrameStat(0.1, 0.4, 0.3, 0.5, 0.8, 0.0, 0.01, 0.005),
+        FrameStat(0.22, 0.4, 0.3, 0.5, 0.8, 0.0, 0.01, 0.005),
+    ]
+    events = detect_visual_events(stats)
+
+    segments = _build_segments([0.0, 0.4], stats, [], [], duration=0.4, visual_events=events)
+
+    assert segments[0].visual_events
